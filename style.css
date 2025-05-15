@@ -670,4 +670,50 @@ p strong {
 #adjustmentTable td.negative {
   color: #ef4444;
   font-weight: bold;
+}
+
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+.dashboard-cards .dashboard-card {
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.9), rgba(34, 211, 238, 0.9));
+  color: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+.dashboard-cards .dashboard-card:hover {
+  transform: translateY(-5px) scale(1.02);
+}
+.dashboard-cards .dashboard-card h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+.dashboard-cards .dashboard-card p {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+}
+.dashboard-cards .dashboard-card::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(to right, #22d3ee, #4f46e5);
+  opacity: 0.3;
+}
+
+@media (max-width: 600px) {
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+  }
 }/*# sourceMappingURL=style.css.map */

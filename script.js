@@ -149,8 +149,10 @@ localStorage.setItem("transferHistory", JSON.stringify(transferHistory));
       renderTransferHistory();
     }
   }
-
   if (id === "warehouse") renderInventory();
+  if (id === "dashboard") renderDashboardStats();
+
+  
 }
 
 
@@ -399,8 +401,29 @@ function renderTransferHistory() {
   });
 }
 
+// DASHBOARD ANALYTICS
+function renderDashboardStats() {
+  const inventory = JSON.parse(localStorage.getItem("inventory")) || [];
+  const adjustments = JSON.parse(localStorage.getItem("adjustments")) || [];
+  const vendors = JSON.parse(localStorage.getItem("vendors")) || [];
+  const transfers = JSON.parse(localStorage.getItem("transferHistory")) || [];
+  const purchaseOrders = JSON.parse(localStorage.getItem("purchaseOrders")) || [];
+
+  const lowStockCount = inventory.filter(item => parseInt(item.quantity) < 25).length;
+  const blacklistedVendorCount = vendors.filter(v => v.status === "blacklisted").length;
+  const pendingPOCount = purchaseOrders.filter(po => po.status === "pending").length;
+
+  document.getElementById("lowStockCount").textContent = lowStockCount;
+  document.getElementById("blacklistedVendorCount").textContent = blacklistedVendorCount;
+  document.getElementById("pendingPOCount").textContent = pendingPOCount;
+  document.getElementById("adjustmentCount").textContent = adjustments.length;
+  document.getElementById("transfer-count").textContent = transfers.length;
+}
+
+
+
 
 // Make renderInventory globally accessible
 window.renderInventory = renderInventory;
 
-// DASHBOARD ANALYTICS
+

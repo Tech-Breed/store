@@ -802,3 +802,60 @@ p strong {
 
 
 
+
+
+// ============================
+// 📊 Dashboard Analytics Cards
+// ============================
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+
+  .dashboard-card {
+    background: linear-gradient(135deg, rgba($primary, 0.9), rgba($secondary, 0.9));
+    color: white;
+    border-radius: $radius;
+    padding: 1.5rem;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px) scale(1.02);
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    p {
+      font-size: 2rem;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    // Optional mini bar visualization (decorative)
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 4px;
+      width: 100%;
+      background: linear-gradient(to right, $secondary, $primary);
+      opacity: 0.3;
+    }
+  }
+}
+
+// Mobile tweak
+@media (max-width: 600px) {
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+  }
+}
