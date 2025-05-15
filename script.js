@@ -77,6 +77,7 @@ if (transferBtn) {
 
       localStorage.setItem("inventory", JSON.stringify(inventory));
       renderInventory();
+      
 // ===========================
 // ✅ NEW: Save Transfer History
 // ===========================
@@ -101,6 +102,10 @@ localStorage.setItem("transferHistory", JSON.stringify(transferHistory));
 
   // ===== Global Inventory State =====
   let inventory = JSON.parse(localStorage.getItem("inventory")) || [];
+
+  let vendors = JSON.parse(localStorage.getItem("vendors")) || [];
+
+
 
   // ===== Initialize App =====
   const savedSection = localStorage.getItem("activeSection") || "dashboard";
@@ -159,12 +164,18 @@ localStorage.setItem("transferHistory", JSON.stringify(transferHistory));
     modalOverlay.classList.add("active");
     modalOverlay.querySelector(".modal-content").innerHTML = contentHTML;
   }
+window.openModal = openModal;
 
   // ===== Inventory Form Modal (Add/Edit) =====
   function openInventoryForm(mode = "add", itemData = null) {
     const isEdit = mode === "edit";
     const formTitle = isEdit ? "Edit Inventory Item" : "Add Inventory Item";
     const submitLabel = isEdit ? "Save Changes" : "Add Item";
+
+    const vendorOptions = vendors.map(v => `
+    <option value="${v.name}" ${itemData?.vendor === v.name ? "selected" : ""}>${v.name}</option>
+    `).join("");
+
 
     openModal(`
       <h2>${formTitle}</h2>
@@ -184,6 +195,7 @@ localStorage.setItem("transferHistory", JSON.stringify(transferHistory));
         <label>Barcode / Code</label>
         <input type="text" name="code" required pattern="^[a-zA-Z0-9-_]+$" value="${itemData?.code || ""}" />
 
+
         <label>Assign To</label>
         <select name="locationType" required>
           <option value="Warehouse" ${itemData?.locationType === "Warehouse" ? "selected" : ""}>Warehouse</option>
@@ -191,9 +203,18 @@ localStorage.setItem("transferHistory", JSON.stringify(transferHistory));
           <option value="Store B" ${itemData?.locationType === "Store B" ? "selected" : ""}>Store B</option>
         </select>
 
+        <label>Vendor</label>
+        <select name="vendor" required>
+        <option value="">Select Vendor</option>
+        ${vendorOptions}
+        </select>
+
+
         <button type="submit" class="submit-btn">${submitLabel}</button>
       </form>
     `);
+
+    //  openInventoryForm
 
     document.getElementById("inventoryForm").addEventListener("submit", e => {
       e.preventDefault();
@@ -205,7 +226,8 @@ localStorage.setItem("transferHistory", JSON.stringify(transferHistory));
         quantity: formData.get("quantity"),
         location: formData.get("location"),
         code: formData.get("code").trim().toUpperCase(),
-        locationType: formData.get("locationType")
+        locationType: formData.get("locationType"),
+        vendor: formData.get("vendor")
       };
 
       const isDuplicateCode = inventory.some(item =>
@@ -312,6 +334,7 @@ localStorage.setItem("transferHistory", JSON.stringify(transferHistory));
         statusClass = "over-stock";
       }
 
+    //   RENDER INVENTORY
       const card = document.createElement("div");
       card.className = `inventory-card ${statusClass}`;
       card.innerHTML = `
@@ -325,6 +348,7 @@ localStorage.setItem("transferHistory", JSON.stringify(transferHistory));
         <p><strong>Location:</strong> ${item.location}</p>
         <p><strong>Assigned To:</strong> ${item.locationType}</p>
         <p><strong>Code:</strong> ${item.code}</p>
+        <p><strong>Vendor:</strong> ${item.vendor || "N/A"}</p>
       `;
       inventoryList.appendChild(card);
     });
@@ -374,3 +398,9 @@ function renderTransferHistory() {
     tableBody.appendChild(row);
   });
 }
+
+
+// Make renderInventory globally accessible
+window.renderInventory = renderInventory;
+
+// DASHBOARD ANALYTICS

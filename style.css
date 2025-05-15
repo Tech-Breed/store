@@ -577,4 +577,97 @@ p strong {
 #history-section .table-scroll table tbody tr td {
   padding: 0.75rem 1rem;
   white-space: nowrap;
+}
+
+.vendor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+.vendor-header h2 {
+  font-size: 1.6rem;
+  color: #f9fafb;
+}
+.vendor-header .add-vendor-btn {
+  background: linear-gradient(135deg, #22d3ee, #4f46e5);
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+.vendor-header .add-vendor-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.table-scroll {
+  overflow-x: auto;
+  border-radius: 12px;
+  background: #253041;
+  padding: 1rem;
+  max-width: 100%;
+}
+.table-scroll table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 700px;
+}
+.table-scroll table thead {
+  background-color: #19222d;
+}
+.table-scroll table thead th {
+  text-align: left;
+  padding: 0.8rem 1rem;
+  font-weight: 600;
+  color: #f9fafb;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.table-scroll table tbody tr {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.table-scroll table tbody tr:hover {
+  background: #181f2a;
+}
+.table-scroll table tbody tr td {
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  color: #9ca3af;
+}
+.table-scroll table tbody tr td button {
+  background: none;
+  border: none;
+  color: #22d3ee;
+  font-size: 1rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
+}
+.table-scroll table tbody tr td button:hover {
+  color: #69e1f3;
+}
+
+@media (max-width: 768px) {
+  .table-scroll {
+    padding: 0.5rem;
+  }
+  .table-scroll table {
+    font-size: 0.85rem;
+  }
+  .table-scroll table th,
+  .table-scroll table td {
+    padding: 0.6rem;
+  }
+}
+#adjustmentTable td.positive {
+  color: #22c55e;
+  font-weight: bold;
+}
+
+#adjustmentTable td.negative {
+  color: #ef4444;
+  font-weight: bold;
 }/*# sourceMappingURL=style.css.map */

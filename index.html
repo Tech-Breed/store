@@ -17,9 +17,12 @@
         <ul>
           <li class="nav-link active" data-section="dashboard">Dashboard</li>
           <li class="nav-link" data-section="warehouse">Warehouse</li>
+          <li class="nav-link" data-section="adjustments">Stock Adjustments</li>
           <li class="nav-link" data-section="history">Transfer History</li>
           <li class="nav-link" data-section="vendor">Vendors</li>
           <li class="nav-link" data-section="reports">Reports</li>
+
+    
 
         </ul>
       </nav>
@@ -28,78 +31,150 @@
     <!-- Main Content -->
     <main class="main-content">
       <!-- Header -->
-      <header class="header">
-        <h1 class="page-title">Dashboard</h1>
-        <div class="user-info">Welcome, Admin</div>
-      </header>
+        <header class="header">
+            <h1 class="page-title">Dashboard</h1>
+                <div class="user-info">Welcome, Admin</div>
 
-      <!-- Dynamic Panels -->
-      <section class="content-section" id="dashboard-section">Welcome to AssetFlow
+                
+            </header>
 
-      </section>
-      <section class="content-section hidden" id="warehouse-section">
-        
-        <label>Location</label>
-<select name="locationType" required>
-  <option value="Warehouse">Warehouse</option>
-  <option value="Store A">Store A</option>
-  <option value="Store B">Store B</option>
-</select>
+    <!-- Dynamic Panels -->
+   <section class="content-section" id="dashboard-section">
+  <h2>Dashboard Overview</h2>
+  <div class="dashboard-cards">
+    <div class="dashboard-card">
+      <h3>Low Stock Items</h3>
+      <p id="lowStockCount">0</p>
+    </div>
+    <div class="dashboard-card">
+      <h3>Pending Purchase Orders</h3>
+      <p id="pendingPOCount">0</p>
+    </div>
+    <div class="dashboard-card">
+      <h3>Total Adjustments</h3>
+      <p id="adjustmentCount">0</p>
+    </div>
+    <div class="dashboard-card">
+      <h3>Blacklisted Vendors</h3>
+      <p id="blacklistedVendorCount">0</p>
+    </div>
+    <div class="dashboard-card">
+      <h3>Total Transfers Logged</h3>
+      <p id="transfer-count">0</p>
+    </div>
+  </div>
+</section>
 
-<div class="warehouse-filter">
-  <label>View by Location:</label>
-  <select id="warehouseFilter">
-    <option value="all">All</option>
-    <!-- JS will populate options dynamically -->
-  </select>
-</div>
+            
+        <section class="content-section hidden" id="warehouse-section">
+            <label>Location</label>
+            <select name="locationType" required>
+            <option value="Warehouse">Warehouse</option>
+            <option value="Store A">Store A</option>
+            <option value="Store B">Store B</option>
+            </select>
+
+        <div class="warehouse-filter">
+        <label>View by Location:</label>
+        <select id="warehouseFilter">
+            <option value="all">All</option>
+            <!-- JS will populate options dynamically -->
+        </select>
+        </div>
 
 
         <div class="warehouse-header">
-    
-  <h2>Inventory Tracking</h2>
-  <div class="button-group">
+        <h2>Inventory Tracking</h2>
+        <div class="button-group">
 
-    <button class="add-item-btn">+ Add Item</button> 
-    <button class="transfer-item-btn">Transfer Item</button>
-    <button class="scan-item-btn">📷 Scan Item</button>
+            <button class="add-item-btn">+ Add Item</button> 
+            <button class="transfer-item-btn">Transfer Item</button>
+            <button class="scan-item-btn">📷 Scan Item</button>
+        </div>  
+        </div>
+
+        <div class="inventory-list" id="inventoryList">
+        <!-- Inventory cards dynamically injected here -->
+        </div>
+        </section>
+           
+        <section id="history-section" class="content-section hidden">
+        <h2>Transfer History</h2>
+        <div class="table-scroll">
+        <table id="transferHistoryTable">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>From</th>
+                <th>To</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Transfer records will be injected here -->
+            </tbody>
+        </table>
+        </div>
+        </section>
+
+        <section class="content-section hidden" id="adjustments-section">
+  <div class="adjustment-header">
+    <h2>Stock Adjustment</h2>
+    <button class="add-adjustment-btn">+ New Adjustment</button>
   </div>
-  
-</div>
 
-
-
-<div class="inventory-list" id="inventoryList">
-  <!-- Inventory cards dynamically injected here -->
-</div>
-
-      </section>
-
-     <section id="history-section" class="content-section hidden">
-
-  <h2>Transfer History</h2>
   <div class="table-scroll">
-  <table id="transferHistoryTable">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Item</th>
-        <th>Quantity</th>
-        <th>From</th>
-        <th>To</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Transfer records will be injected here -->
-    </tbody>
-  </table>
+    <table id="adjustmentTable">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Item</th>
+          <th>Change</th>
+          <th>Reason</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Adjustments will be injected here -->
+      </tbody>
+    </table>
   </div>
 </section>
 
 
-      <section class="content-section hidden" id="vendor-section"></section>
-      <section class="content-section hidden" id="reports-section"></section>
-    </main>
+        <section class="content-section hidden" id="vendor-section">
+        <div class="vendor-header">
+        <h2>Vendor Directory</h2>
+        <button class="add-vendor-btn">+ Add Vendor</button>
+        </div>
+
+        <div class="table-scroll">
+        <table id="vendorTable">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Contact</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Category</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Vendors will be populated here -->
+            </tbody>
+        </table>
+        </div>
+
+        
+        
+
+    </section>
+        <section class="content-section hidden" id="reports-section">
+         </section>
+           </main>
+
+    
 
     <!-- Modal Overlay -->
     <div class="modal-overlay hidden">
@@ -110,7 +185,9 @@
     </div>
   </div>
 
+  <script src="vendor.js"></script>
   <script src="script.js"></script>
+  <script src="adjustment.js"></script>
   <script src="transfer-history.js"></script>
 </body>
 </html>
